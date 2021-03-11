@@ -1,3 +1,5 @@
+<%@page import="com.model.MessageDAO"%>
+<%@page import="com.model.MessageDTO"%>
 <%@page import="com.model.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -17,26 +19,33 @@
 <body>
 	<%
 	MemberDTO info = (MemberDTO) session.getAttribute("info");
+	MessageDTO message_info = (MessageDTO) session.getAttribute("message_info");
+	%>
+	
+	<%
+	System.out.print(info.getEmail());
+/* 	System.out.print(message_info.getReceive()); */
 	%>
 
 	<!-- Wrapper -->
 	<div id="wrapper">
-      
+
 		<!-- Header -->
 		<header id="header" class="alt"> <a href="index.html"
-			class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a> <nav>
+			class="logo"><strong>JUZI</strong> <span>by HELLO JUZI</span></a> <nav>
 
- 		<%if(info!=null){%> 		
-			<%if(info.getEmail().equals("admin")){%> 
-				<a href="select.jsp">회원정보관리</a>				
-			<%} %>
-				<a href="update.jsp">개인정보수정</a>
-				<a href="LogoutServiceCon">로그아웃</a> 			
-		<%}else{%> 
-			<a href="#menu">로그인</a>
-			<%}%> 
-			
-			</nav> </header>
+		<%
+		if (info != null) {
+		%> <%
+ if (info.getEmail().equals("admin")) {
+ %> <a href="select.jsp">회원정보관리</a> <%
+ }
+ %> <a href="update.jsp">개인정보수정</a> <a href="LogoutServiceCon">로그아웃</a>
+		<%
+ } else {
+ %> <a href="#menu">로그인</a> <%
+ }
+ %> </nav> </header>
 
 
 		<!-- Menu -->
@@ -65,12 +74,18 @@
 		<!-- Banner -->
 		<section id="banner" class="major">
 		<div class="inner">
-			<header class="major"> <% if (info != null) {%>
+			<header class="major"> <%
+ if (info != null) {
+ %>
 			<h1><%=info.getEmail()%>님 환영합니다.
 			</h1>
-			<%} else {%>
+			<%
+			} else {
+			%>
 			<h1>로그인 한 세션아이디를 출력해주세요</h1>
-			<%}%> </header>
+			<%
+			}
+			%> </header>
 			<div class="content">
 				<p>
 					게시판을 이용해보세요 ^^<br>
@@ -141,7 +156,7 @@
 					<%
 					if (info != null) {
 					%>
-					<li><%=info.getEmail()%>님 메세지를 확인해보세요.</li>
+					<li><%=info.getEmail()%>님 새로운 메세지를 확인해보세요.</li>
 					<%
 					} else {
 					%><li>로그인을 하세요.</li>
@@ -149,6 +164,16 @@
 					}
 					%>
 					<li><a href="#" class="button next scrolly">전체삭제하기</a></li>
+					<br>
+<%-- 					<%	MessageDAO dao = new MessageDAO();
+						ArrayList<MessageDTO> list = dao.message();
+						if (info != null && message_info !=null){			
+							for (int i = 0; i < list.size(); i++) {								
+									if (info.getEmail().equals(message_info.getReceive())) {%>
+								<li><%=list.get(i).getContent()%></li>
+								<%}}} else {%>
+								<li>새로 온 메세지가 없습니다.</li>
+							<%}%> --%>
 				</ul>
 			</div>
 			</section>
@@ -159,19 +184,19 @@
 		<section id="contact">
 		<div class="inner">
 			<section>
-			<form>
+			<form action="MessageServiceCon" method="post">
 				<div class="field half first">
 					<label for="name">Name</label> <input type="text" id="name"
-						placeholder="보내는 사람 이름" />
+						placeholder="받는 사람 이름" name="recieve" />
 				</div>
 				<div class="field half">
 					<label for="email">Email</label> <input type="text" id="email"
-						placeholder="보낼 사람 이메일" />
+						placeholder="보낼 사람 이메일" name="send" />
 				</div>
 
 				<div class="field">
 					<label for="message">Message</label>
-					<textarea id="message" rows="6"></textarea>
+					<textarea id="message" rows="6" name="content"></textarea>
 				</div>
 				<ul class="actions">
 					<li><input type="submit" value="Send Message" class="special" /></li>
@@ -218,11 +243,17 @@
 			<div class="contact-method">
 				<span class="icon alt fa-home"></span>
 				<h3>Address</h3>
-				<%if (info != null) {%>
+				<%
+				if (info != null) {
+				%>
 				<span><%=info.getAddr()%></span>
-				<%} else {%>
+				<%
+				} else {
+				%>
 				<span>로그인 한 사람의 집주소를 출력</span>
-				<%} %>
+				<%
+				}
+				%>
 			</div>
 			</section> </section>
 		</div>
