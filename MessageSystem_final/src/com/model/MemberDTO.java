@@ -14,6 +14,7 @@ public class MemberDTO {
 		this.addr = addr;
 	}
 
+
 	public MemberDTO(String email, String pw) {
 		this.email = email;
 		this.pw = pw;

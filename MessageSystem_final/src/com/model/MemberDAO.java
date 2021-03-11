@@ -15,6 +15,7 @@ public class MemberDAO {
 	ResultSet rs = null;
 	MemberDTO loginDTO = null;
 	MemberDTO info = null;
+	ArrayList<MemberDTO> list = null;
 
 	public void conn() {
 		try {
@@ -95,11 +96,11 @@ public class MemberDAO {
 	}
 
 	public int update(MemberDTO dto) {
-		conn();
+		conn();		
 		try {
 			String sql = "update web_member set pw = ?, tel=?, address=? where email=?";
 			psmt = conn.prepareStatement(sql);
-			
+
 			psmt.setString(1, dto.getPw());
 			psmt.setString(2, dto.getTel());
 			psmt.setString(3, dto.getAddr());
@@ -113,5 +114,30 @@ public class MemberDAO {
 		}
 		return cnt;
 
+	}
+
+	public ArrayList<MemberDTO> select() {
+		list = new ArrayList<MemberDTO>();
+		conn();		
+		try {
+			String sql = "select * from web_member";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				String email = rs.getString(1);
+				String pw = rs.getString(2);
+				String tel = rs.getString(3);
+				String addr = rs.getString(4);
+				
+				info = new MemberDTO(email, pw, tel, addr);
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 }

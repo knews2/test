@@ -26,19 +26,18 @@
 		<header id="header" class="alt"> <a href="index.html"
 			class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a> <nav>
 
-		<%if(info!=null){ %>
-		
+ 		<%if(info!=null){%> 		
 			<%if(info.getEmail().equals("admin")){%> 
-				<a href="select.jsp">회원정보관리</a>
-				<a href="update.jsp">개인정보수정</a>
-				<a href="LogoutServiceCon">로그아웃</a> 
-			<%}	else {%>
-			    <a href="update.jsp">개인정보수정</a>
-			    <a href="LogoutServiceCon">로그아웃</a>
+				<a href="select.jsp">회원정보관리</a>				
 			<%} %>
-			<%} else {%> 
-				<a href="#menu">로그인</a>
-				<%}%> </nav> </header>
+				<a href="update.jsp">개인정보수정</a>
+				<a href="LogoutServiceCon">로그아웃</a> 			
+		<%}else{%> 
+			<a href="#menu">로그인</a>
+			<%}%> 
+			
+			</nav> </header>
+
 
 		<!-- Menu -->
 		<nav id="menu">
@@ -223,7 +222,7 @@
 				<span><%=info.getAddr()%></span>
 				<%} else {%>
 				<span>로그인 한 사람의 집주소를 출력</span>
-				<%}%>
+				<%} %>
 			</div>
 			</section> </section>
 		</div>
