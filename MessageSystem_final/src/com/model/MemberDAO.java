@@ -14,6 +14,7 @@ public class MemberDAO {
 	int cnt = 0;
 	ResultSet rs = null;
 	MemberDTO loginDTO = null;
+	MemberDTO info = null;
 
 	public void conn() {
 		try {
@@ -90,6 +91,27 @@ public class MemberDAO {
 			close();
 		}
 		return loginDTO;
+
+	}
+
+	public int update(MemberDTO dto) {
+		conn();
+		try {
+			String sql = "update web_member set pw = ?, tel=?, address=? where email=?";
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, dto.getPw());
+			psmt.setString(2, dto.getTel());
+			psmt.setString(3, dto.getAddr());
+			psmt.setString(4, dto.getEmail());
+
+			cnt = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 
 	}
 }

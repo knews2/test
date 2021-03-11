@@ -21,13 +21,24 @@
 
 	<!-- Wrapper -->
 	<div id="wrapper">
-
+      
 		<!-- Header -->
 		<header id="header" class="alt"> <a href="index.html"
 			class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a> <nav>
 
-		<%if(info!=null){%> <a href="#menu">로그아웃2</a> <%} else {%> <a href="#menu">로그인</a>
-		<%}%> <!-- 로그인 후 Logout.jsp로 이동할 수 있는'로그아웃'링크와 '개인정보수정'링크를 출력하시오. --> </nav> </header>
+		<%if(info!=null){ %>
+		
+			<%if(info.getEmail().equals("admin")){%> 
+				<a href="select.jsp">회원정보관리</a>
+				<a href="update.jsp">개인정보수정</a>
+				<a href="LogoutServiceCon">로그아웃</a> 
+			<%}	else {%>
+			    <a href="update.jsp">개인정보수정</a>
+			    <a href="LogoutServiceCon">로그아웃</a>
+			<%} %>
+			<%} else {%> 
+				<a href="#menu">로그인</a>
+				<%}%> </nav> </header>
 
 		<!-- Menu -->
 		<nav id="menu">
@@ -50,6 +61,8 @@
 			</form>
 		</ul>
 		</nav>
+
+
 		<!-- Banner -->
 		<section id="banner" class="major">
 		<div class="inner">
@@ -193,7 +206,7 @@
 				<%
 				if (info != null) {
 				%>
-				<span><%=info.getEmail()%></span>
+				<span><%=info.getTel()%></span>
 				<%
 				} else {
 				%>
@@ -206,17 +219,11 @@
 			<div class="contact-method">
 				<span class="icon alt fa-home"></span>
 				<h3>Address</h3>
-				<%
-				if (info != null) {
-				%>
+				<%if (info != null) {%>
 				<span><%=info.getAddr()%></span>
-				<%
-				} else {
-				%>
+				<%} else {%>
 				<span>로그인 한 사람의 집주소를 출력</span>
-				<%
-				}
-				%>
+				<%}%>
 			</div>
 			</section> </section>
 		</div>

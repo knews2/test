@@ -18,7 +18,7 @@ public class MemberDTO {
 		this.email = email;
 		this.pw = pw;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
