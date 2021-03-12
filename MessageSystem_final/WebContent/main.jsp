@@ -19,13 +19,13 @@
 <body>
 	<%
 	MemberDTO info = (MemberDTO) session.getAttribute("info");
-	MessageDTO message_info = (MessageDTO) session.getAttribute("message_info");
+	MessageDAO dao = new MessageDAO();
+	ArrayList<MessageDTO> mlist = null;
+	if (info != null) {
+		mlist = dao.select(info.getEmail());
+	}
 	%>
-	
-	<%
-	System.out.print(info.getEmail());
-/* 	System.out.print(message_info.getReceive()); */
-	%>
+
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -42,8 +42,8 @@
  }
  %> <a href="update.jsp">개인정보수정</a> <a href="LogoutServiceCon">로그아웃</a>
 		<%
- } else {
- %> <a href="#menu">로그인</a> <%
+		} else {
+		%> <a href="#menu">로그인</a> <%
  }
  %> </nav> </header>
 
@@ -82,7 +82,7 @@
 			<%
 			} else {
 			%>
-			<h1>로그인 한 세션아이디를 출력해주세요</h1>
+			<h1>회원가입 or 로그인을 해주세요.</h1>
 			<%
 			}
 			%> </header>
@@ -145,6 +145,7 @@
 			</h3>
 			<p>여러분의 최종프로젝트에 웹 기술을 활용하세요!</p>
 			</header> </article> </section>
+			
 			<!-- Two -->
 			<section id="two">
 			<div class="inner">
@@ -163,18 +164,36 @@
 					<%
 					}
 					%>
-					<li><a href="#" class="button next scrolly">전체삭제하기</a></li>
-					<br>
-<%-- 					<%	MessageDAO dao = new MessageDAO();
-						ArrayList<MessageDTO> list = dao.message();
-						if (info != null && message_info !=null){			
-							for (int i = 0; i < list.size(); i++) {								
-									if (info.getEmail().equals(message_info.getReceive())) {%>
-								<li><%=list.get(i).getContent()%></li>
-								<%}}} else {%>
-								<li>새로 온 메세지가 없습니다.</li>
-							<%}%> --%>
+					<li><a href="DelAllServieCon" class="button next scrolly">전체삭제하기</a></li>
 				</ul>
+
+				<table>
+					<tr>
+						<td>번호</td>
+						<td>보낸 사람</td>
+						<td>내용</td>
+						<td>보낸 시간</td>
+						<td>비고</td>
+					</tr>
+
+					<%
+					if (mlist != null) {
+						for (int i = 0; i < mlist.size(); i++) {
+					%>
+					<tr>
+						<td><%=i + 1%></td>
+						<td><%=mlist.get(i).getSend()%></td>
+						<td><%=mlist.get(i).getContent()%></td>
+						<td><%=mlist.get(i).getSend_date()%></td>
+						<td><a href="DelOneServiceCon?num=<%=mlist.get(i).getNum()%>"
+							class="button next scrolly">삭제</a></td>
+					</tr>
+					<%
+					}
+					}
+					%>
+				</table>
+
 			</div>
 			</section>
 
@@ -191,7 +210,8 @@
 				</div>
 				<div class="field half">
 					<label for="email">Email</label> <input type="text" id="email"
-						placeholder="보낼 사람 이메일" name="send" />
+						<%if (info != null) {%> value="<%=info.getEmail()%>" <%} else {%>
+						placeholder="보내는 사람 이름" <%}%> name="send" />
 				</div>
 
 				<div class="field">
@@ -217,7 +237,7 @@
 				<%
 				} else {
 				%>
-				<a href="#">로그인 한 사람의 이메일을 출력</a>
+				<a href="#">Email</a>
 				<%
 				}
 				%>
@@ -234,7 +254,7 @@
 				<%
 				} else {
 				%>
-				<span>로그인 한 사람의 전화번호를 출력</span>
+				<span>Phone</span>
 				<%
 				}
 				%>

@@ -12,8 +12,8 @@ public class MessageDAO {
 	PreparedStatement psmt = null;
 	int cnt = 0;
 	ResultSet rs = null;
-	ArrayList<MessageDTO> list = null;
-	MessageDTO info = null;
+	MessageDTO mDto = null;
+	ArrayList<MessageDTO> mlist = null;
 
 	public void conn() {
 		try {
@@ -64,29 +64,62 @@ public class MessageDAO {
 		return cnt;
 	}
 
-	public ArrayList<MessageDTO> message() {
-		list = new ArrayList<MessageDTO>();
+	public ArrayList<MessageDTO> select(String email) {
+		mlist = new ArrayList<MessageDTO>();
 		conn();
 		try {
-			String sql = "select * from message";
+			String sql = "select * from message where receive = ?";
 			psmt = conn.prepareStatement(sql);
-
+			psmt.setString(1, email);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
+				int num = rs.getInt(1);
 				String send = rs.getString(2);
 				String receive = rs.getString(3);
 				String content = rs.getString(4);
+				String date = rs.getString(5);
 
-				info = new MessageDTO(send, receive, content);
-				list.add(info);
+				mDto = new MessageDTO(num, send, receive, content, date);
+				mlist.add(mDto);
 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return mlist;
+	}
 
+	public int DeleteAll(String email) {
+		conn();
+		try {
+			String sql = "delete from message where receive =?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, email);
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+
+	public int DeleteOne(String num) {
+		conn();
+		try {
+			String sql = "delete from message where num=?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, num);
+
+			cnt = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 	}
 
 }

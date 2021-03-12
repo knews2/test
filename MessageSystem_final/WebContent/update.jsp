@@ -27,12 +27,12 @@
 		<!-- Menu -->
 		<nav id="Update">
 		<ul class="actions vertical">
-			<li><h5>회원정보수정</h5></li>
+			<li><h4>회원정보 수정</h4></li><br>
 			<form action="UpdateServiceCon" method="post">
 				<%
 				if (info != null) {
 				%>
-				<li>접속한 Email : <%=info.getEmail()%> 님 안녕하세요.
+				<li><%=info.getEmail()%> 님 안녕하세요.
 				</li>
 				<%
 				} else {
@@ -47,8 +47,11 @@
 					style="width: 500px; margin: 0 auto;"></li>
 				<li><input type="text" name="addr" placeholder="집주소를 입력하세요"
 					style="width: 500px; margin: 0 auto;"></li>
-				<li><input type="submit" value="Update" class="button fit"
+
+				<li><input type="submit" value="Update" class="button"
 					style="width: 500px; margin: 0 auto;"></li>
+				<li><a href="main.jsp" class="button fit"
+					style="width: 500px; margin: 0 auto;">BACK</a></li>
 			</form>
 		</ul>
 		</nav>
