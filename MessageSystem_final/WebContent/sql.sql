@@ -51,3 +51,14 @@ num.nextval,
 sysdate
 );
 
+select * from web_member;
+
+select * from message;
+
+create table message(
+
+
+
+
+
+)

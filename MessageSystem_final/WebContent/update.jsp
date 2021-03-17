@@ -28,7 +28,7 @@
 		<nav id="Update">
 		<ul class="actions vertical">
 			<li><h4>회원정보 수정</h4></li><br>
-			<form action="UpdateServiceCon" method="post">
+			<form action="UpdateServiceCon.do" method="post">
 				<%
 				if (info != null) {
 				%>

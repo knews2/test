@@ -40,7 +40,7 @@
  if (info.getEmail().equals("admin")) {
  %> <a href="select.jsp">회원정보관리</a> <%
  }
- %> <a href="update.jsp">개인정보수정</a> <a href="LogoutServiceCon">로그아웃</a>
+ %> <a href="update.jsp">개인정보수정</a> <a href="LogoutServiceCon.do">로그아웃</a>
 		<%
 		} else {
 		%> <a href="#menu">로그인</a> <%
@@ -52,7 +52,7 @@
 		<nav id="menu">
 		<ul class="links">
 			<li><h5>로그인</h5></li>
-			<form action="loginServiceCon" method="post">
+			<form action="loginServiceCon.do" method="post">
 				<li><input type="text" placeholder="Email을 입력하세요" name="email"></li>
 				<li><input type="password" placeholder="PW를 입력하세요" name="pw"></li>
 				<li><input type="submit" value="LogIn" class="button fit"></li>
@@ -60,7 +60,7 @@
 		</ul>
 		<ul class="actions vertical">
 			<li><h5>회원가입</h5></li>
-			<form action="JoinServiceCon" method="post">
+			<form action="JoinServiceCon.do" method="post">
 				<li><input type="text" placeholder="Email을 입력하세요" name="email"></li>
 				<li><input type="password" placeholder="PW를 입력하세요" name="pw"></li>
 				<li><input type="text" placeholder="전화번호를 입력하세요" name="tel"></li>
@@ -69,7 +69,6 @@
 			</form>
 		</ul>
 		</nav>
-
 
 		<!-- Banner -->
 		<section id="banner" class="major">
@@ -164,7 +163,7 @@
 					<%
 					}
 					%>
-					<li><a href="DelAllServieCon" class="button next scrolly">전체삭제하기</a></li>
+					<li><a href="DelAllServiceCon.do" class="button next scrolly">전체삭제하기</a></li>
 				</ul>
 
 				<table>
@@ -185,7 +184,7 @@
 						<td><%=mlist.get(i).getSend()%></td>
 						<td><%=mlist.get(i).getContent()%></td>
 						<td><%=mlist.get(i).getSend_date()%></td>
-						<td><a href="DelOneServiceCon?num=<%=mlist.get(i).getNum()%>"
+						<td><a href="DelOneServiceCon.do?num=<%=mlist.get(i).getNum()%>"
 							class="button next scrolly">삭제</a></td>
 					</tr>
 					<%
@@ -203,7 +202,7 @@
 		<section id="contact">
 		<div class="inner">
 			<section>
-			<form action="MessageServiceCon" method="post">
+			<form action="MessageServiceCon.do" method="post">
 				<div class="field half first">
 					<label for="name">Name</label> <input type="text" id="name"
 						placeholder="받는 사람 이름" name="recieve" />
